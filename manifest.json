@@ -1,0 +1,6 @@
+{
+  "name": "gob",
+  "short_name": "gob",
+  "start_url": "/",
+  "display": "standalone"
+}
