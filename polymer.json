@@ -1,0 +1,22 @@
+{
+  "entrypoint": "index.html",
+
+  "shell": "src/gob-app.html",
+
+  "fragments": [
+    "bower_components/gob-page-home/gob-page-home.html",
+    "bower_components/gob-page-not-found/gob-page-not-found.html",
+    "bower_components/gob-page-hello-target-audience/gob-page-hello-target-audience.html"
+  ],
+
+  "sourceGlobs": [
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}

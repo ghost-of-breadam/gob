@@ -1,0 +1,187 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<!--
+`gob-app`
+ghost of breadam application element - much description
+
+@demo demo/index.html
+-->
+
+<dom-module id="gob-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      app-header{
+        background-color: rgba(255,255,255,0.9);
+      }
+
+      app-toolbar paper-icon-button{
+        color:#ddd;
+      }
+
+      #footer{
+        background-color:#111;
+        color:#aaa;
+      }
+
+      #footer .content{
+        padding:4rem 1rem;
+        font-weight:normal;
+        font-size:0.9rem;
+      }
+
+      #footer .content h3{
+        font-weight:normal;
+      }
+
+      #footer .content a{
+        color:#44c;
+      }
+
+      #footer .note{
+        font-size:0.9rem;
+        color:#666;
+        padding:0.8rem 1rem;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+
+    <app-route
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      active="{{active}}"
+      tail="{{subroute}}"></app-route>
+
+    <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+
+    <app-header-layout>
+      <app-header fixed effects="waterfall">
+        <app-toolbar sticky>
+          <a href="/" tabindex="-1">
+            <paper-icon-button icon="home"></paper-icon-button>
+          </a>
+        </app-toolbar>
+      </app-header>
+
+      <iron-pages id="pages"
+        selected="[[page]]"
+        attr-for-selected="slug"
+        fallback-selection="not-found">
+
+        <gob-page-not-found
+          slug="not-found">
+        </gob-page-not-found>
+
+        <gob-page-home
+          slug="home"
+          posts="[[posts]]">
+        </gob-page-home>
+
+        <gob-page-hello-target-audience
+          slug="hello-target-audience"
+          title="Hello Target Audience">
+        </gob-page-hello-target-audience>
+
+        <!--<gob-page-everyday-im-shufflin
+          slug="everyday-im-shufflin"
+          title="Everyday Im Shufflin">
+        </gob-page-everyday-im-shufflin>-->
+
+      </iron-pages>
+
+      <div id='footer'>
+        <div class="content">
+          <h3>Contact me</h4>
+          <p>
+            <a href="https://facebook.com/ymncagatay" target="_blank">
+              https://facebook.com/ymncagatay
+            </a>
+          </p>
+          <p>
+            <a href="https://twitter.com/ymncagatay" target="_blank">
+              https://twitter.com/ymncagatay
+            </a>
+          </p>
+          <p>
+            <a href="https://instagram.com/cagatay__yaman" target="_blank">
+              https://instagram.com/cagatay__yaman
+            </a>
+          </p>
+          <p>
+            <a href="mailto://cagatay@breadam.com"> cagatay@breadam.com </a>
+          </p>
+        </div>
+        <div class="note">
+          &copy Çağatay Yaman, All Rights Reserved
+        </div>
+      </div>
+    </app-header-layout>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'gob-app',
+
+      pagePrefix:'gob-page-',
+      homePage:'home',
+      components:'/bower_components/',
+
+      properties: {
+        page: {
+          type: String,
+          observer: '_pageChanged'
+        }
+      },
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      _pageChanged:function(page){
+
+        var elementName = this.pagePrefix + page;
+        var urlStr = this.components + elementName + '/' + elementName +'.html';
+        var pageUrl = this.resolveUrl(urlStr);
+
+        this.importHref(pageUrl,null,this._showPageNotFound,true);
+      },
+
+      _showPageNotFound:function(){
+        this.page = 'not-found';
+      },
+
+      _routePageChanged:function(page){
+        this.page = page || this.homePage;
+      },
+
+      attached: function() {
+
+        this._updateGridStyles = this._updateGridStyles || function() {
+          this.updateStyles();
+        }.bind(this);
+
+        window.addEventListener('resize', this._updateGridStyles);
+      },
+
+      detached: function() {
+        window.removeEventListener('resize', this._updateGridStyles);
+      }
+
+    });
+  </script>
+</dom-module>
