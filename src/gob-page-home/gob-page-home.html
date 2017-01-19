@@ -137,11 +137,13 @@
       <div class="app-grid" has-aspect-ratio>
         <template is='dom-repeat' items="[[articles]]" as="article">
           <div class='item' style="background-image:url([[article.image]]);">
-            <a href='/[[article.slug]]'>
-              <div class='header'>
-                [[article.title]]
-              </div>
-            </a>
+            <paper-material>
+              <a href='/[[article.slug]]'>
+                <div class='header'>
+                  [[article.title]]
+                </div>
+              </a>
+            </paper-material>
           </div>
         </template>
       </div>
