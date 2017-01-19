@@ -1,0 +1,157 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<!--
+`gob-page-home`
+
+@demo demo/index.html
+-->
+
+<dom-module id="gob-page-home">
+  <template>
+    <style include="app-grid-style">
+      :host {
+        display: block;
+      }
+
+      #hero{
+        text-align:center;
+        padding: 80px 0 160px 0;
+        color:rgba(0,0,0,0.75);
+      }
+
+      #hero #photo{
+        margin:auto;
+        width:132px;
+        height:132px;
+        border-radius: 66px;
+      }
+
+      #hero #photo img{
+        margin:2px 2px;
+        width:128px;
+        height:128px;
+        border-radius: 64px;
+      }
+
+      #hero #name{
+        display:inline-block;
+        padding:0.2rem;
+        margin-top:-4px;
+        -ms-transform: rotate(-1deg);
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-1deg);
+
+        -webkit-backface-visibility: hidden; /* smoothes edges */
+      }
+
+      #hero #name h1{
+        margin:0;
+      }
+
+      #posts{
+        margin:auto;
+        padding:0;
+      }
+
+      .item{
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position: center;
+      }
+
+      .item .header{
+
+        position:absolute;
+        left:0;
+        bottom:0;
+
+        padding:0.5rem;
+
+        text-transform:capitalize;
+        font-weight: bold;
+        color:#fff;
+        font-size:2rem;
+        text-shadow: 2px 2px #222;
+      }
+
+      .item img{
+        position:absolute;
+        width:100%;
+      }
+
+      @media(max-width: 480px){
+        :host{
+          --app-grid-columns:1;
+          --app-grid-gutter:0.5rem;
+        }
+
+        #posts{
+          width:100%;
+        }
+      }
+
+      @media(min-width: 481px){
+        :host {
+          --app-grid-columns:2;
+          --app-grid-gutter:1rem;
+        }
+
+        #posts{
+          width:90%;
+        }
+      }
+
+      @media(min-width: 800px) {
+        :host {
+          --app-grid-columns:3;
+          --app-grid-gutter:2rem;
+        }
+
+        #posts{
+          width:80%;
+        }
+      }
+
+    </style>
+
+    <iron-ajax
+      auto
+      url="/articles"
+      handle-as="json"
+      last-response="{{articles}}"
+      loading="{{articlesLoading}}"
+      debounce-duration="300"></iron-ajax>
+
+    <div id="hero">
+      <paper-material id="photo">
+        <img src="dude.jpg"/>
+      </paper-material>
+      <paper-material id="name">
+        <h1>Çağatay Yaman</h1>
+      </paper-material>
+    </div>
+
+    <div id='posts'>
+      <div class="app-grid" has-aspect-ratio>
+        <template is='dom-repeat' items="[[articles]]" as="article">
+          <div class='item' style="background-image:url([[article.image]]);">
+            <a href='/[[article.slug]]'>
+              <div class='header'>
+                [[article.title]]
+              </div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'gob-page-home'
+    });
+  </script>
+</dom-module>

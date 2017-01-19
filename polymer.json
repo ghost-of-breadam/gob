@@ -4,9 +4,10 @@
   "shell": "src/gob-app.html",
 
   "fragments": [
-    "bower_components/gob-page-home/gob-page-home.html",
-    "bower_components/gob-page-not-found/gob-page-not-found.html",
-    "bower_components/gob-page-hello-target-audience/gob-page-hello-target-audience.html"
+    "src/gob-page-home/gob-page-home.html",
+    "src/gob-page-not-found/gob-page-not-found.html",
+    "src/gob-page-hello-target-audience/gob-page-hello-target-audience.html",
+    "src/gob-page-everyday-im-shufflin/gob-page-everyday-im-shufflin.html"
   ],
 
   "sourceGlobs": [
@@ -17,6 +18,7 @@
 
   "includeDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.js"
   ]
 }
