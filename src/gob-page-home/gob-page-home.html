@@ -59,6 +59,10 @@
         background-repeat:no-repeat;
         background-size:cover;
         background-position: center;
+        border-radius:4px;
+        -webkit-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
+        box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
       }
 
       .item .header{
@@ -74,15 +78,6 @@
         color:#fff;
         font-size:2rem;
         text-shadow: 2px 2px #222;
-      }
-
-      .item img{
-        position:absolute;
-        width:100%;
-        border-radius:4px;
-        -webkit-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
-        box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.75);
       }
 
       @media(max-width: 480px){
@@ -141,13 +136,11 @@
       <div class="app-grid" has-aspect-ratio>
         <template is='dom-repeat' items="[[articles]]" as="article">
           <div class='item' style="background-image:url([[article.image]]);">
-            <paper-material>
-              <a href='/[[article.slug]]'>
-                <div class='header'>
-                  [[article.title]]
-                </div>
-              </a>
-            </paper-material>
+            <a href='/[[article.slug]]'>
+              <div class='header'>
+                [[article.title]]
+              </div>
+            </a>
           </div>
         </template>
       </div>
